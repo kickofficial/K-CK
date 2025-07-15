@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>K!CK Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: url('img/sium.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 6vw;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+
+    form {
+      width: 95%;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    label {
+      font-size: 4vw;
+      font-weight: bold;
+      display: block;
+      margin-top: 12px;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 4vw;
+      margin-top: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .product-image {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .product-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    #size-container {
+      display: none;
+    }
+
+    @media (min-width: 600px) {
+      h1 { font-size: 32px; }
+      label, select, input, textarea { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>K!CK SHOP</h1>
+
+  <form action="https://formspree.io/f/mzzvbewy" method="POST">
+    <label for="name">Nome completo</label>
+    <input type="text" id="name" name="name" placeholder="Mario Rossi" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="esempio@email.com" required>
+
+    <label for="address">Indirizzo completo</label>
+    <textarea id="address" name="address" placeholder="Via Roma 123, 00100 Roma (RM)" required></textarea>
+
+    <label for="product">Scegli una T-shirt (Vol. 1 - 10) o altro prodotto</label>
+    <select id="product" name="product" onchange="updateImage(); toggleSize();">
+      <option value="">-- Seleziona --</option>
+      <optgroup label="T-shirt">
+        <option value="tshirt1">T-shirt Vol. 1</option>
+        <option value="tshirt2">T-shirt Vol. 2</option>
+        <option value="tshirt3">T-shirt Vol. 3</option>
+        <option value="tshirt4">T-shirt Vol. 4</option>
+        <option value="tshirt5">T-shirt Vol. 5</option>
+        <option value="tshirt6">T-shirt Vol. 6</option>
+        <option value="tshirt7">T-shirt Vol. 7</option>
+        <option value="tshirt8">T-shirt Vol. 8</option>
+        <option value="tshirt9">T-shirt Vol. 9</option>
+        <option value="tshirt10">T-shirt Vol. 10</option>
+      </optgroup>
+      <option value="borsello">Borsello</option>
+      <option value="zaino">Zaino</option>
+      <option value="cappello">Cappello</option>
+    </select>
+
+    <div id="size-container">
+      <label for="size">Taglia</label>
+      <select id="size" name="size">
+        <option value="">-- Seleziona taglia --</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+        <option value="3XL">3XL</option>
+      </select>
+    </div>
+
+    <button type="submit" style="margin-top:20px; padding: 10px 20px; font-size: 4vw;">Invia Ordine</button>
+  </form>
+
+  <div class="product-image" id="product-image"></div>
+
+  <script>
+    function updateImage() {
+      const product = document.getElementById("product").value;
+      const imageDiv = document.getElementById("product-image");
+
+      const imageMap = {
+        tshirt1: "img/tshirt1.jpg",
+        tshirt2: "img/tshirt2.jpg",
+        tshirt3: "img/tshirt3.jpg",
+        tshirt4: "img/tshirt4.jpg",
+        tshirt5: "img/tshirt5.jpg",
+        tshirt6: "img/tshirt6.jpg",
+        tshirt7: "img/tshirt7.jpg",
+        tshirt8: "img/tshirt8.jpg",
+        tshirt9: "img/tshirt9.jpg",
+        tshirt10: "img/tshirt10.jpg",
+        borsello: "img/borsello.jpg",
+        zaino: "img/zaino.jpg",
+        cappello: "img/cappello.jpg"
+      };
+
+      if (product && imageMap[product]) {
+        imageDiv.innerHTML = `<img src="${imageMap[product]}" alt="${product}">`;
+      } else {
+        imageDiv.innerHTML = "";
+      }
+    }
+
+    function toggleSize() {
+      const product = document.getElementById("product").value;
+      const sizeContainer = document.getElementById("size-container");
+
+      if (product.startsWith("tshirt")) {
+        sizeContainer.style.display = "block";
+      } else {
+        sizeContainer.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
